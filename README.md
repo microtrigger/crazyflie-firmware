@@ -1,4 +1,16 @@
-##CrazyFlie Firmware
+## My Custum CrazyFlie Firmware
+
+This is where I play with the crazyflie firmware. The latest version of this should be used in conjunction with the latest version of my [crazyflieROS](https://github.com/omwdunkley/crazyflieROS) client application.
+
+For now the changes are minimal, most of the important ones have been merged into the bitCraze repo already.
+
+Thanks to Phil Hoch for providing the base code for the idle task measurement.
+
+Idealy the changes here do not break compatibility with the default client application by BitCraze.
+
+Below is the original readme for reference
+
+----
 
 This project contains the source code for the Crazyflie firmware. More information can be found on the 
 [Bitcraze wiki](http://wiki.bitcraze.se/projects:crazyflie:index)
