@@ -28,10 +28,12 @@
 #include <stdbool.h>
 
 /* FreeRtos includes */
+
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
 
+#include "utilization.h"
 #include "debug.h"
 #include "version.h"
 #include "config.h"
@@ -39,6 +41,8 @@
 #include "log.h"
 #include "ledseq.h"
 #include "pm.h"
+
+
 
 #include "system.h"
 #include "configblock.h"
@@ -53,7 +57,6 @@
 
 /* Private variable */
 static bool canFly;
-
 static bool isInit;
 
 /* System wide synchronisation */
@@ -84,6 +87,7 @@ void systemInit(void)
   adcInit();
   ledseqInit();
   pmInit();
+  utilizationInit();
     
   isInit = true;
 }
@@ -96,6 +100,7 @@ bool systemTest()
   pass &= ledseqTest();
   pass &= pmTest();
   pass &= workerTest();
+  pass &= utilizationTest();
   
   return pass;
 }
@@ -138,6 +143,7 @@ void systemTask(void *arg)
   pass &= commanderTest();
   pass &= stabilizerTest();
   
+
   //Start the firmware
   if(pass)
   {

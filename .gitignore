@@ -63,3 +63,4 @@ local.properties
 config.mk
 *~
 cflie.*
+version.c

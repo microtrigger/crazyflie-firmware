@@ -122,10 +122,28 @@ to exclude the API function. */
 #define TASK_ADC_ID_NBR         4
 #define TASK_PM_ID_NBR          5
 
+
+
+/*
 #define traceTASK_SWITCHED_IN() \
   { \
     extern void debugSendTraceInfo(unsigned int taskNbr); \
     debugSendTraceInfo((int)pxCurrentTCB->pxTaskTag); \
   }
+*/
+
+
+#define traceTASK_SWITCHED_OUT() \
+    { \
+    extern void taskSwitchedOut(signed char *pcTaskName); \
+    taskSwitchedOut(&pxCurrentTCB->pcTaskName[0]); \
+    }
+#define traceTASK_SWITCHED_IN() \
+    { \
+    extern void taskSwitchedIn(signed char *pcTaskName); \
+    taskSwitchedIn(&pxCurrentTCB->pcTaskName[0]); \
+    extern void debugSendTraceInfo(unsigned int taskNbr); \
+    debugSendTraceInfo((int)pxCurrentTCB->pxTaskTag); \
+    }
 
 #endif /* FREERTOS_CONFIG_H */
