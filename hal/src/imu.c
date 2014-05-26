@@ -100,6 +100,8 @@ static bool       isMs5611Present;
 static bool isMpu6050TestPassed;
 static bool isHmc5883lTestPassed;
 static bool isMs5611TestPassed;
+static bool accCalib = FALSE;
+static bool gyroCalib = FALSE;
 
 // Pre-calculated values for accelerometer alignment
 static float cosPitch;
@@ -262,6 +264,8 @@ void imu6Read(Axis3f* gyroOut, Axis3f* accOut)
   if (!accelBias.isBiasValueFound)
   {
     imuAddBiasValue(&accelBias, &accelMpu);
+  } else {
+	  accCalib = TRUE;
   }
   if (!gyroBias.isBiasValueFound)
   {
@@ -269,6 +273,7 @@ void imu6Read(Axis3f* gyroOut, Axis3f* accOut)
     if (gyroBias.isBiasValueFound)
     {
       ledseqRun(LED_RED, seq_calibrated);
+      gyroCalib = TRUE;
 //      uartPrintf("Gyro bias: %i, %i, %i\n",
 //                  gyroBias.bias.x, gyroBias.bias.y, gyroBias.bias.z);
     }
@@ -500,6 +505,11 @@ PARAM_GROUP_START(imu_sensors)
 PARAM_ADD(PARAM_UINT8 | PARAM_RONLY, HMC5883L, &isHmc5883lPresent)
 PARAM_ADD(PARAM_UINT8 | PARAM_RONLY, MS5611, &isMs5611Present)
 PARAM_GROUP_STOP(imu_sensors)
+
+PARAM_GROUP_START(imu_calib)
+PARAM_ADD(PARAM_UINT8 | PARAM_RONLY, accCalib, &accCalib)
+PARAM_ADD(PARAM_UINT8 | PARAM_RONLY, gyroCalib, &gyroCalib)
+PARAM_GROUP_STOP(imu_calib)
 
 PARAM_GROUP_START(imu_tests)
 PARAM_ADD(PARAM_UINT8 | PARAM_RONLY, MPU6050, &isMpu6050TestPassed)
