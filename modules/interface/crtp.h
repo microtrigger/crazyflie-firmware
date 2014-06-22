@@ -41,6 +41,7 @@ typedef enum {
   CRTP_PORT_COMMANDER   = 0x03,
   CRTP_PORT_LOG         = 0x05,
   CRTP_PORT_LINK        = 0x0F,
+  CRTP_PORT_SYNC        = 0x0D, // Ollie Sync port
 } CRTPPort;
 
 typedef struct _CRTPPacket

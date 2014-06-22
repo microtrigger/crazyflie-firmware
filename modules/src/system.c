@@ -41,6 +41,7 @@
 #include "log.h"
 #include "ledseq.h"
 #include "pm.h"
+#include "sync.h"
 
 
 
@@ -102,6 +103,7 @@ bool systemTest()
   pass &= workerTest();
   pass &= utilizationTest();
   
+
   return pass;
 }
 
@@ -136,12 +138,14 @@ void systemTask(void *arg)
 
   commanderInit();
   stabilizerInit();
+  syncInit();
   
   //Test the modules
   pass &= systemTest();
   pass &= commTest();
   pass &= commanderTest();
   pass &= stabilizerTest();
+  pass &= syncTest();
   
 
   //Start the firmware
